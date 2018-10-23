@@ -1,5 +1,5 @@
 <?php
-// $Revision: 9913 $ $Date:: 2018-10-22 #$ $Author: serge $
+// $Revision: 9914 $ $Date:: 2018-10-22 #$ $Author: serge $
 
 require_once '../api.php';
 require_once __DIR__.'/../../lead_reg_protocol/str_helper.php';
@@ -21,7 +21,7 @@ echo "TEST: lead_reg_protocol/RegisterLeadRequest\n";
         echo "OK: opened session\n";
 
         {
-            $req = new \lead_reg_protocol\RegisterLeadRequest( $session_id, new \lead_reg_protocol\Lead( \lead_reg_protocol\gender_e_MALE, "Doe", "John", new \basic_objects\Email( "johndoe@example.com" ), "+49123456789", new \basic_objects\Date( 1978, 7, 6 ) ) );
+            $req = new \lead_reg_protocol\RegisterLeadRequest( $session_id, new \lead_reg_protocol\Lead( \lead_reg_protocol\gender_e_MALE, "Doe", "John", new \basic_objects\Email( "" ), "", new \basic_objects\Date( 1978, 7, 6 ) ) );
 
             echo "REQ = " . $req->to_generic_request() . "\n";
             $resp = $api->submit( $req );

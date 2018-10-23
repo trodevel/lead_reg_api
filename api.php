@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 9905 $ $Date:: 2018-10-19 #$ $Author: serge $
+// $Revision: 9916 $ $Date:: 2018-10-22 #$ $Author: serge $
 
 namespace lead_reg_api;
 
@@ -35,10 +35,10 @@ class Api extends \generic_api\Api
     {
         $res = \lead_reg_protocol\ResponseParser::parse( $resp );
 
-        if( $res == NULL )
-            return \generic_protocol\ResponseParser::parse( $resp );
+        if( $res != NULL )
+            return $res;
 
-        return $res;
+        return \generic_protocol\ResponseParser::create_parse_error();
     }
 }
 
