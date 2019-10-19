@@ -1,8 +1,8 @@
 <?php
-// $Revision: 9914 $ $Date:: 2018-10-22 #$ $Author: serge $
+// $Revision: 12202 $ $Date:: 2019-10-18 #$ $Author: serge $
 
 require_once '../api.php';
-require_once __DIR__.'/../../lead_reg_protocol/str_helper.php';
+require_once __DIR__.'/../../user_reg_protocol/str_helper.php';
 require_once '../credentials.php';
 
 $error_msg = "";
@@ -10,9 +10,9 @@ $error_msg = "";
 $user_id = 0;
 
 echo "\n";
-echo "TEST: lead_reg_protocol/RegisterLeadRequest\n";
+echo "TEST: user_reg_protocol/RegisterUserRequest\n";
 {
-    $api = new \lead_reg_api\Api( $host, $port );
+    $api = new \user_reg_api\Api( $host, $port );
 
     $session_id = NULL;
 
@@ -21,12 +21,12 @@ echo "TEST: lead_reg_protocol/RegisterLeadRequest\n";
         echo "OK: opened session\n";
 
         {
-            $req = new \lead_reg_protocol\RegisterLeadRequest( $session_id, new \lead_reg_protocol\Lead( \lead_reg_protocol\gender_e_MALE, "Doe", "John", new \basic_objects\Email( "" ), "", new \basic_objects\Date( 1978, 7, 6 ) ) );
+            $req = new \user_reg_protocol\RegisterUserRequest( $session_id, new \user_reg_protocol\User( \user_reg_protocol\gender_e_MALE, "Doe", "John", new \basic_objects\Email( "" ), "", new \basic_objects\Date( 1978, 7, 6 ) ) );
 
             echo "REQ = " . $req->to_generic_request() . "\n";
             $resp = $api->submit( $req );
 
-            echo "RESP = " . \lead_reg_protocol\to_html( $resp ) . "\n\n";
+            echo "RESP = " . \user_reg_protocol\to_html( $resp ) . "\n\n";
         }
 
         if( $api->close_session( $session_id, $error_msg ) == true )

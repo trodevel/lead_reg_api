@@ -2,7 +2,7 @@
 
 /*
 
-Lead/Registration API.
+User/Registration API.
 
 Copyright (C) 2018 Sergey Kolevatov
 
@@ -21,19 +21,19 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 9916 $ $Date:: 2018-10-22 #$ $Author: serge $
+// $Revision: 12201 $ $Date:: 2019-10-18 #$ $Author: serge $
 
-namespace lead_reg_api;
+namespace user_reg_api;
 
-require_once __DIR__.'/../lead_reg_protocol/lead_reg_protocol.php';
-require_once __DIR__.'/../lead_reg_protocol/response_parser.php';    // ResponseParser::parse()
+require_once __DIR__.'/../user_reg_protocol/user_reg_protocol.php';
+require_once __DIR__.'/../user_reg_protocol/response_parser.php';    // ResponseParser::parse()
 require_once __DIR__.'/../generic_api/api.php';
 
 class Api extends \generic_api\Api
 {
     protected function parse_response( $resp )
     {
-        $res = \lead_reg_protocol\ResponseParser::parse( $resp );
+        $res = \user_reg_protocol\ResponseParser::parse( $resp );
 
         if( $res != NULL )
             return $res;
