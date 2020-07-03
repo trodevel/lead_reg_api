@@ -1,8 +1,11 @@
 <?php
-// $Revision: 12202 $ $Date:: 2019-10-18 #$ $Author: serge $
+// $Revision: 13347 $ $Date:: 2020-07-03 #$ $Author: serge $
 
 require_once '../api.php';
 require_once __DIR__.'/../../user_reg_protocol/str_helper.php';
+require_once __DIR__.'/../../user_reg_protocol/object_initializer.php';
+require_once __DIR__.'/../../user_reg_protocol/request_encoder.php';
+require_once __DIR__.'/../../basic_objects/object_initializer.php';
 require_once '../credentials.php';
 
 $error_msg = "";
@@ -21,12 +24,12 @@ echo "TEST: user_reg_protocol/RegisterUserRequest\n";
         echo "OK: opened session\n";
 
         {
-            $req = new \user_reg_protocol\RegisterUserRequest( $session_id, new \user_reg_protocol\User( \user_reg_protocol\gender_e_MALE, "Doe", "John", new \basic_objects\Email( "" ), "", new \basic_objects\Date( 1978, 7, 6 ) ) );
+            $req = new \user_reg_protocol\create__RegisterUserRequest( $session_id, \user_reg_protocol\create__User( \user_reg_protocol\gender_e__MALE, "Doe", "John", \basic_objects\create__Email( "" ), "", new \basic_objects\create__Date( 1978, 7, 6 ) ) );
 
-            echo "REQ = " . $req->to_generic_request() . "\n";
+            echo "REQ = " . \user_reg_protocol\to_generic_request( $req ) . "\n";
             $resp = $api->submit( $req );
 
-            echo "RESP = " . \user_reg_protocol\to_html( $resp ) . "\n\n";
+            echo "RESP = " . \user_reg_protocol\to_string( $resp ) . "\n\n";
         }
 
         if( $api->close_session( $session_id, $error_msg ) == true )

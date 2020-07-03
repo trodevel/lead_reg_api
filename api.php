@@ -21,24 +21,24 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12201 $ $Date:: 2019-10-18 #$ $Author: serge $
+// $Revision: 13347 $ $Date:: 2020-07-03 #$ $Author: serge $
 
 namespace user_reg_api;
 
-require_once __DIR__.'/../user_reg_protocol/user_reg_protocol.php';
-require_once __DIR__.'/../user_reg_protocol/response_parser.php';    // ResponseParser::parse()
+require_once __DIR__.'/../user_reg_protocol/protocol.php';
+require_once __DIR__.'/../user_reg_protocol/parser.php';    // Parser::parse()
 require_once __DIR__.'/../generic_api/api.php';
 
 class Api extends \generic_api\Api
 {
     protected function parse_response( $resp )
     {
-        $res = \user_reg_protocol\ResponseParser::parse( $resp );
+        $res = \user_reg_protocol\Parser::parse( $resp );
 
         if( $res != NULL )
             return $res;
 
-        return \generic_protocol\ResponseParser::create_parse_error();
+        return \generic_protocol\Parser::create_parse_error();
     }
 }
 
