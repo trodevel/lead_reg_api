@@ -21,24 +21,62 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 13347 $ $Date:: 2020-07-03 #$ $Author: serge $
+// $Revision: 13904 $ $Date:: 2020-09-29 #$ $Author: serge $
 
 namespace user_reg_api;
 
+require_once __DIR__.'/../generic_api/api.php';
 require_once __DIR__.'/../user_reg_protocol/protocol.php';
 require_once __DIR__.'/../user_reg_protocol/parser.php';    // Parser::parse()
-require_once __DIR__.'/../generic_api/api.php';
+require_once __DIR__.'/apiio.php';
 
 class Api extends \generic_api\Api
 {
-    protected function parse_response( $resp )
+    public function __construct( $host, $port )
     {
-        $res = \user_reg_protocol\Parser::parse( $resp );
+        parent::__construct( $host, $port );
 
-        if( $res != NULL )
-            return $res;
+        $this->apiio = new ApiIO( $host, $port );
+    }
 
-        return \generic_protocol\Parser::create_parse_error();
+    public function register_user( $user, $password, & $resp )
+    {
+        // execute request
+
+        $req = \user_reg_protocol\create__RegisterUserRequest( $user, $password );
+
+        $resp = $this->apiio->submit( $req );
+
+        if( get_class ( $resp ) == "generic_protocol\ErrorResponse" )
+        {
+            return false;
+        }
+        elseif( get_class( $resp ) == "user_reg_protocol\RegisterUserResponse" )
+        {
+            return true;
+        }
+
+        throw new InternalException( "unexpected response: " . get_class( $resp ) );
+    }
+
+    public function confirm_registration( $registration_key, & $resp )
+    {
+        // execute request
+
+        $req = \user_reg_protocol\create__ConfirmRegistrationRequest( $registration_key, );
+
+        $resp = $this->apiio->submit( $req );
+
+        if( get_class ( $resp ) == "generic_protocol\ErrorResponse" )
+        {
+            return false;
+        }
+        elseif( get_class( $resp ) == "user_reg_protocol\ConfirmRegistrationResponse" )
+        {
+            return true;
+        }
+
+        throw new InternalException( "unexpected response: " . get_class( $resp ) );
     }
 }
 
