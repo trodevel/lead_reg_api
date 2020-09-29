@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 13904 $ $Date:: 2020-09-29 #$ $Author: serge $
+// $Revision: 13908 $ $Date:: 2020-09-29 #$ $Author: serge $
 
 namespace user_reg_api;
 
@@ -63,7 +63,7 @@ class Api extends \generic_api\Api
     {
         // execute request
 
-        $req = \user_reg_protocol\create__ConfirmRegistrationRequest( $registration_key, );
+        $req = \user_reg_protocol\create__ConfirmRegistrationRequest( $registration_key );
 
         $resp = $this->apiio->submit( $req );
 
@@ -78,6 +78,8 @@ class Api extends \generic_api\Api
 
         throw new InternalException( "unexpected response: " . get_class( $resp ) );
     }
+
+    private $apiio;  // ApiIO
 }
 
 ?>
