@@ -1,5 +1,5 @@
 <?php
-// $Revision: 13930 $ $Date:: 2020-10-03 #$ $Author: serge $
+// $Revision: 13932 $ $Date:: 2020-10-03 #$ $Author: serge $
 
 require_once __DIR__.'/../api.php';
 require_once __DIR__.'/../../user_reg_protocol/html_helper.php';
@@ -10,28 +10,19 @@ require_once '../credentials.php';
 $error_msg = "";
 
 echo "\n";
-echo "TEST: user_reg_protocol/RegisterUserRequest\n";
+echo "TEST: user_reg_protocol/ConfirmRegistrationRequest\n";
 try
 {
     $api = new \user_reg_api\Api( $host, $port );
 
-
-    $user  = \user_reg_protocol\create__User(
-        \basic_objects\gender_e__MALE
-        , "test_user"
-        , "Dow"
-        , "John"
-        , \basic_objects\create__Email( "john.dow@yoyodine.com" )
-        , "+1234567890"
-        , \basic_objects\create__Date( 2020, 9, 29 )
-    );
+    $registration_key = "b074bb5e-e601-4822-83c7-e6ade99870fb";
 
     $resp = NULL;
 
-    if( $api->register_user( $user, "xxx", $resp ) == false )
+    if( $api->confirm_registration( $registration_key, $resp ) == false )
     {
         echo \user_reg_protocol\to_html( $resp ) . "\n\n";
-        throw new \Exception( "cannot register user" );
+        throw new \Exception( "cannot confirm registration" );
     }
 
     echo \user_reg_protocol\to_html( $resp ) . "\n\n";
